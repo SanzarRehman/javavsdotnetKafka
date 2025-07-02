@@ -1,0 +1,11 @@
+.vs/
+*.user
+*.suo
+*.vsidx
+*.db
+bin/
+obj/
+Dockerfile
+*.md
+*.log
+TestResults/

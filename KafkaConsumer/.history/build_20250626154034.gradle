@@ -1,0 +1,63 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+application {
+    mainClass = 'application.Main'
+    applicationDefaultJvmArgs = ['--enable-preview']
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs.add('--enable-preview')
+}
+
+// Add a task to run the test producer
+task runProducer(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'application.TestProducer'
+    jvmArgs = ['--enable-preview']
+}
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes "Main-Class": "application.Main"
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+dependencies {
+    // Json
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.3'
+
+    // Kafka
+    implementation 'org.springframework.kafka:spring-kafka:3.3.6'
+
+
+    // JPA
+    implementation 'org.springframework.data:spring-data-jpa:3.5.0'
+    implementation 'jakarta.persistence:jakarta.persistence-api:3.1.0'
+    implementation 'jakarta.transaction:jakarta.transaction-api:2.0.1'
+
+    // Database
+    implementation 'com.zaxxer:HikariCP:6.3.0'
+    runtimeOnly 'org.hibernate:hibernate-core:6.6.15.Final'
+    runtimeOnly 'org.postgresql:postgresql:42.7.7'
+}

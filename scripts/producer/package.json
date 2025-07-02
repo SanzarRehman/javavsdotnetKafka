@@ -1,0 +1,15 @@
+{
+  "name": "kafka-producer",
+  "version": "1.0.0",
+  "description": "Kafka message producer for Spring Boot vs .NET performance comparison",
+  "main": "producer.js",
+  "scripts": {
+    "start": "node producer.js"
+  },
+  "dependencies": {
+    "kafkajs": "^2.2.4"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
