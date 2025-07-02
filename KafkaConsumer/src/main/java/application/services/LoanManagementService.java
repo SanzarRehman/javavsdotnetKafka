@@ -1,44 +1,35 @@
 package application.services;
 
-import application.entities.Loan;
-import application.messages.DisburseCommand;
 import application.entities.SpringBootMessage;
-import application.repositories.LoanRepository;
 import application.repositories.SpringBootMessageRepository;
+import application.messages.DisburseCommand;
+import application.utils.JsonUtils;
 import jakarta.transaction.Transactional;
+
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service
 public class LoanManagementService {
-  private final LoanRepository loanRepository;
   private final SpringBootMessageRepository springBootMessageRepository;
 
-  public LoanManagementService(LoanRepository loanRepository, SpringBootMessageRepository springBootMessageRepository) {
-    this.loanRepository = loanRepository;
-      this.springBootMessageRepository = springBootMessageRepository;
+  public LoanManagementService(SpringBootMessageRepository springBootMessageRepository) {
+    this.springBootMessageRepository = springBootMessageRepository;
   }
 
+  // Simple async method matching .NET's approach
+  @Async("taskExecutor")
   @Transactional
- // @Async
-  public void handleDisburseCommand(String disburseCommand) {
-  //  System.out.println(disburseCommand);
-    SpringBootMessage entity = new SpringBootMessage(UUID.randomUUID().toString(), disburseCommand);
+  public CompletableFuture<Void> handleDisburseCommandAsync(String disburseCommand) {
+    SpringBootMessage entity = new SpringBootMessage(
+            UUID.randomUUID().toString(),
+            disburseCommand
+    );
 
     springBootMessageRepository.save(entity);
-  }
-
-  private static Loan from(DisburseCommand disburseCommand) {
-    Loan loan = new Loan();
-    loan.setAmount(disburseCommand.amount());
-    loan.setMemberId(disburseCommand.memberId());
-    loan.setId(disburseCommand.loanId());
-    // Set service_id to identify this as Spring Boot processed
-    loan.setServiceId("spring-boot-service");
-    loan.assignEntityDefaults(disburseCommand.userContext());
-
-    return loan;
+    return CompletableFuture.completedFuture(null);
   }
 }

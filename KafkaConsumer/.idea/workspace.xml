@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="29e32154-9f06-42e9-b774-e803a9ab5d3e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../KafkaConsumer.Net/.idea/.idea.KafkaConsumer/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../KafkaConsumer.Net/.idea/.idea.KafkaConsumer/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../KafkaConsumer.Net/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../KafkaConsumer.Net/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../scripts/benchmark-tps.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../scripts/benchmark-tps.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../scripts/check-performance.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../scripts/check-performance.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/messageListeners/KafkaMessageListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/messageListeners/KafkaMessageListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/repositories/SpringBootMessageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/repositories/SpringBootMessageRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/services/LoanManagementService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/services/LoanManagementService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +113,7 @@
       <workItem from="1750918761607" duration="6393000" />
       <workItem from="1750932374547" duration="4171000" />
       <workItem from="1751173719256" duration="6945000" />
-      <workItem from="1751374185811" duration="3774000" />
+      <workItem from="1751374185811" duration="4381000" />
     </task>
     <servers />
   </component>
