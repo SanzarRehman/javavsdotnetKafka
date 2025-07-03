@@ -2,17 +2,22 @@
 FROM openjdk:21-jdk-slim AS build
 WORKDIR /app
 
-# Copy gradle wrapper and build files
+# Copy gradle wrapper and build files first (for better layer caching)
 COPY gradlew .
 COPY gradle gradle/
 COPY build.gradle .
 COPY settings.gradle .
 
-# Copy source code
+# Make gradlew executable
+RUN chmod +x ./gradlew
+
+# Download dependencies first (this layer will be cached if build.gradle doesn't change)
+RUN ./gradlew dependencies --no-daemon || true
+
+# Copy source code (this comes after dependency download for better caching)
 COPY src src/
 
-# Make gradlew executable and build
-RUN chmod +x ./gradlew
+# Build the application
 RUN ./gradlew build --no-daemon
 
 # Stage 2: Runtime

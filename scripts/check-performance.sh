@@ -24,11 +24,11 @@ get_springboot_count() {
 }
 
 get_recent_dotnet_count() {
-    docker exec postgres psql -U postgres -d microfinance_db -t -c "SELECT COUNT(*) FROM dotnet_messages WHERE processed_at > NOW() - INTERVAL '5 minutes';" 2>/dev/null | tr -d ' ' | tr -d '\n'
+    docker exec postgres psql -U postgres -d microfinance_db -t -c "SELECT COUNT(*) FROM dotnet_messages WHERE processed_at > NOW() - INTERVAL '1 minutes';" 2>/dev/null | tr -d ' ' | tr -d '\n'
 }
 
 get_recent_springboot_count() {
-    docker exec postgres psql -U postgres -d microfinance_db -t -c "SELECT COUNT(*) FROM spring_boot_messages WHERE processed_at > NOW() - INTERVAL '5 minutes';" 2>/dev/null | tr -d ' ' | tr -d '\n'
+    docker exec postgres psql -U postgres -d microfinance_db -t -c "SELECT COUNT(*) FROM spring_boot_messages WHERE processed_at > NOW() - INTERVAL '1 minutes';" 2>/dev/null | tr -d ' ' | tr -d '\n'
 }
 
 # Get current message counts

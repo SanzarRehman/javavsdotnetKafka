@@ -6,9 +6,21 @@
   <component name="ChangeListManager">
     <list default="true" id="29e32154-9f06-42e9-b774-e803a9ab5d3e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/messageListeners/KafkaMessageListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/messageListeners/KafkaMessageListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/repositories/SpringBootMessageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/repositories/SpringBootMessageRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/services/LoanManagementService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/services/LoanManagementService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/DisburseCommandProducer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/entities/SpringBootMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/messageListeners/JpaConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/messageListeners/KafkaConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/messageListeners/KafkaMessageListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/messages/DisburseCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/messages/DisburseCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/repositories/LoanRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/repositories/SpringBootMessageRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/services/LoanManagementService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/check-performance.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../scripts/check-performance.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,11 +52,17 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Gradle.Build KafkaConsumer.executor": "Run",
     "Gradle.KafkaConsumer [:application.Main.main()].executor": "Run",
     "Gradle.KafkaConsumer [:application.TestProducer.main()].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
+    "Spring Boot.Main.executor": "Run",
+    "git-widget-placeholder": "reactive-spring",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/sanzar/Documents/spVsDot/KafkaConsumer",
     "node.js.detected.package.eslint": "true",
@@ -55,7 +73,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Spring Boot.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="application.Main" />
       <module name="KafkaConsumer.main" />
@@ -83,12 +101,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Main" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="KafkaConsumer.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="application.Main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="application.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.TestProducer" />
       <item itemvalue="Application.Main" />
+      <item itemvalue="Spring Boot.Main" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.Main" />
         <item itemvalue="Application.TestProducer" />
         <item itemvalue="Application.Main" />
       </list>
@@ -113,11 +146,38 @@
       <workItem from="1750918761607" duration="6393000" />
       <workItem from="1750932374547" duration="4171000" />
       <workItem from="1751173719256" duration="6945000" />
-      <workItem from="1751374185811" duration="4381000" />
+      <workItem from="1751374185811" duration="22402000" />
+      <workItem from="1751542015242" duration="4951000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/application/messageListeners/ConcurrentKafkaMessageDispatcher.java</url>
+          <line>34</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/application/messageListeners/ConcurrentKafkaMessageDispatcher.java</url>
+          <line>95</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/application/messageListeners/ConcurrentKafkaMessageDispatcher.java</url>
+          <line>96</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/application/messageListeners/KafkaMessageHandler.java</url>
+          <line>33</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

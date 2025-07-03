@@ -46,9 +46,22 @@ services:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: localpass123
+      POSTGRES_IDLE_IN_TRANSACTION_SESSION_TIMEOUT: 60000  # 60s (milliseconds)
+      POSTGRES_TCP_KEEPALIVES_IDLE: 60                     # 60s (seconds)
+      POSTGRES_TCP_KEEPALIVES_INTERVAL: 10                 # 10s
+      POSTGRES_TCP_KEEPALIVES_COUNT: 5                     # 5 retries
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    command: >
+      postgres
+      -c max_connections=200
+      -c shared_buffers=256MB
+      -c effective_cache_size=1GB
+      -c maintenance_work_mem=64MB
+      -c checkpoint_completion_target=0.9
+      -c wal_buffers=16MB
+      -c default_statistics_target=100
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
@@ -73,6 +86,8 @@ services:
       - DB_NAME=microfinance_db
       - DB_USERNAME=postgres
       - DB_PASSWORD=localpass123
+    volumes:
+      - gradle_cache:/root/.gradle
     restart: unless-stopped
 
   # .NET Consumer
@@ -108,3 +123,4 @@ services:
 
 volumes:
   postgres_data:
+  gradle_cache:

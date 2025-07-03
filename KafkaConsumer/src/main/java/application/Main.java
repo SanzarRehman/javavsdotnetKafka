@@ -1,27 +1,28 @@
 package application;
 
-import application.messageListeners.JpaConfig;
-import application.messageListeners.KafkaConfig;
-import java.util.concurrent.CountDownLatch;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+@SpringBootApplication
+@EnableTransactionManagement
 public class Main {
 
-  private static final CountDownLatch latch = new CountDownLatch(1);
+    public static void main(String[] args) {
+        ConfigurableApplicationContext context = SpringApplication.run(Main.class, args);
+        
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            context.close();
+        }));
 
-  public static void main(String[] args) throws InterruptedException {
-    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-    context.register(JpaConfig.class, KafkaConfig.class);
-    context.refresh();
-
-    Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-      context.close();
-      latch.countDown();
-    }));
-
-    System.out.println("App running. Press Ctrl+C to exit.");
-    latch.await();
-  }
+        System.out.println("Kafka Consumer App running. Press Ctrl+C to exit.");
+        
+        // Keep the application running
+        try {
+            Thread.currentThread().join();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
 }
-
-
