@@ -80,7 +80,7 @@ services:
       kafka:
         condition: service_started
     environment:
-      - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+      - KAFKA_BOOTSTRAP_SERVERS=10.42.53.125:19092,10.42.53.125:29092,10.42.53.125:39092
       - DB_HOST=postgres
       - DB_PORT=5432
       - DB_NAME=microfinance_db
@@ -116,8 +116,8 @@ services:
       kafka:
         condition: service_started
     environment:
-      - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
-      - TOPIC_NAME=disburse-commands
+      - KAFKA_BOOTSTRAP_SERVERS=10.42.53.125:19092,10.42.53.125:29092,10.42.53.125:39092
+      - TOPIC_NAME=disburse-commands-test
       - MESSAGES_PER_SECOND=1000
     restart: unless-stopped
 

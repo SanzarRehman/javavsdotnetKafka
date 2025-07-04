@@ -24,7 +24,7 @@ get_springboot_count() {
 }
 
 get_recent_dotnet_count() {
-    docker exec postgres psql -U postgres -d microfinance_db -t -c "SELECT COUNT(*) FROM dotnet_messages WHERE processed_at > NOW() - INTERVAL '1 minutes';" 2>/dev/null | tr -d ' ' | tr -d '\n'
+    docker exec postgres psql -U postgres -d microfinance_db -t -c "SELECT COUNT(*) FROM loans WHERE created_date > NOW() - INTERVAL '1 minutes';" 2>/dev/null | tr -d ' ' | tr -d '\n'
 }
 
 get_recent_springboot_count() {
@@ -47,15 +47,15 @@ if ! [[ "$DOTNET_RECENT" =~ ^[0-9]+$ ]]; then DOTNET_RECENT=0; fi
 SPRING_BOOT_TPS=0
 DOTNET_TPS=0
 if [ $SPRING_BOOT_RECENT -gt 0 ]; then
-    SPRING_BOOT_TPS=$(echo "scale=2; $SPRING_BOOT_RECENT / 300" | bc -l 2>/dev/null || echo "$SPRING_BOOT_RECENT" | awk '{print $1/300}')
+    SPRING_BOOT_TPS=$(echo "scale=2; $SPRING_BOOT_RECENT / 60" | bc -l 2>/dev/null || echo "$SPRING_BOOT_RECENT" | awk '{print $1/300}')
 fi
 if [ $DOTNET_RECENT -gt 0 ]; then
-    DOTNET_TPS=$(echo "scale=2; $DOTNET_RECENT / 300" | bc -l 2>/dev/null || echo "$DOTNET_RECENT" | awk '{print $1/300}')
+    DOTNET_TPS=$(echo "scale=2; $DOTNET_RECENT / 60" | bc -l 2>/dev/null || echo "$DOTNET_RECENT" | awk '{print $1/300}')
 fi
 
 echo "Performance Results (Last 5 Minutes):"
 echo "====================================="
-echo "Consumer Type | Total Messages | Recent (5min) | TPS (5min) | Status"
+echo "Consumer Type | Total Messages | Recent (1min) | TPS (1min) | Status"
 echo "-------------|----------------|---------------|------------|--------"
 printf "%-12s | %-14s | %-13s | %-10s | %s\n" \
     "Spring Boot" "$SPRING_BOOT_TOTAL" "$SPRING_BOOT_RECENT" "$SPRING_BOOT_TPS" "$([ $SPRING_BOOT_RECENT -gt 0 ] && echo "ACTIVE" || echo "IDLE")"

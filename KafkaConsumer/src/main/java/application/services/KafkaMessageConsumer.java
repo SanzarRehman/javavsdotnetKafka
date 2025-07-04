@@ -18,8 +18,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class KafkaMessageConsumer {
     
     private static final int CONCURRENCY = 50;
-    private static final String GROUP_ID = "simple";
-    private static final String TOPIC_NAME = "disburse-commands";
+    private static final String GROUP_ID = "simple2";
+    private static final String TOPIC_NAME = "disburse-commands-test";
     
     @Autowired
     private DbContextProvider dbContextProvider;
@@ -29,7 +29,7 @@ public class KafkaMessageConsumer {
     
     @PostConstruct
     public void startAsync() {
-        String bootstrapServers = System.getenv().getOrDefault("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092");
+        String bootstrapServers = System.getenv().getOrDefault("KAFKA_BOOTSTRAP_SERVERS", "10.42.53.125:19092");
         startConsumers(TOPIC_NAME, dbContextProvider, bootstrapServers);
     }
     
@@ -56,10 +56,9 @@ public class KafkaMessageConsumer {
         consumerProps.put(ConsumerConfig.HEARTBEAT_INTERVAL_MS_CONFIG, 20000); // 20 seconds
         consumerProps.put(ConsumerConfig.FETCH_MAX_BYTES_CONFIG, 1048576); // 1MB
         consumerProps.put(ConsumerConfig.MAX_PARTITION_FETCH_BYTES_CONFIG, 1048576); // 1MB per partition
-        consumerProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        consumerProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        
-        KafkaConsumer<String, String> consumer = new KafkaConsumer<>(consumerProps);
+        consumerProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.VoidDeserializer");
+        consumerProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.ByteArrayDeserializer");
+        KafkaConsumer<Void, byte[]> consumer = new KafkaConsumer<>(consumerProps);
         consumer.subscribe(Arrays.asList(topicName));
         
         KafkaMessageDispatcherBase messageHandler;

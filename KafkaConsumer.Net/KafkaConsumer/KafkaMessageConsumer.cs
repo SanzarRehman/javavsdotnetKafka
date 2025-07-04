@@ -5,7 +5,7 @@ using Microsoft.Extensions.Hosting;
 
 internal class KafkaMessageConsumer(DbContextProvider dbContextProvider) : IHostedService
 {
-    private const int Concurrency = 50;
+    private const int Concurrency = 400;
     private const string GroupId = "simple";
     private const string TopicName = "disburse-commands";
     private readonly string BootstrapServers = Environment.GetEnvironmentVariable("KAFKA_BOOTSTRAP_SERVERS") ?? "localhost:9092";

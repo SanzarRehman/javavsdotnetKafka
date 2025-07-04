@@ -1,17 +1,21 @@
 package application.messageListeners;
 
-import application.entities.DotnetMessage;
+
+import application.entities.Loan;
 import application.messages.DisburseCommand;
 import application.services.DbContextProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import java.time.LocalDateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 public class KafkaMessageHandler extends ConcurrentKafkaMessageDispatcher {
     
+    private static final Logger logger = LoggerFactory.getLogger(KafkaMessageHandler.class);
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private final DbContextProvider dbContextProvider;
     
@@ -19,36 +23,37 @@ public class KafkaMessageHandler extends ConcurrentKafkaMessageDispatcher {
         objectMapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
     }
     
-    public KafkaMessageHandler(String topicName, int concurrency, KafkaConsumer<String, String> consumer, DbContextProvider dbContextProvider) {
+    public KafkaMessageHandler(String topicName, int concurrency, KafkaConsumer<Void, byte[]> consumer, DbContextProvider dbContextProvider) {
         super(topicName, concurrency, consumer);
         this.dbContextProvider = dbContextProvider;
     }
     
     @Override
-    public CompletableFuture<Void> handleAsync(String key, String message) {
+    public CompletableFuture<Void> handleAsync(byte[] message) {
         return CompletableFuture.runAsync(() -> {
             try {
-                // Uncomment for debugging
-                // System.out.println("Processing message with key: " + key);
-                
-                String disburseCommand = message;
+                DisburseCommand command = JsonUtils.getMessage(message, DisburseCommand.class);
 
+                Loan loan = from(command);
+
+
+                dbContextProvider.save(loan);
                 
-                DotnetMessage dotnetMessage = new DotnetMessage();
-                dotnetMessage.setMessageId(key != null ? key : UUID.randomUUID().toString());
-                dotnetMessage.setContent(disburseCommand);
-                dotnetMessage.setTimestamp(LocalDateTime.now());
-                dotnetMessage.setProcessedAt(LocalDateTime.now());
-                
-                // Add 1 second sleep before database save (uncomment if needed)
-                // Thread.sleep(1000);
-                
-                // Save to database
-                dbContextProvider.save(dotnetMessage);
-                
+
             } catch (Exception e) {
                 throw new RuntimeException("Error processing message", e);
             }
         });
+    }
+
+    private static Loan from(DisburseCommand disburseCommand) {
+        Loan loan = new Loan();
+        loan.setAmount((double) 0);
+        loan.setMemberId(UUID.randomUUID());
+        loan.setId(UUID.randomUUID());
+        loan.setNewEntry(true);
+        loan.assignEntityDefaults(disburseCommand.userContext());
+
+        return loan;
     }
 }

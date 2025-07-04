@@ -4,7 +4,11 @@ class MessageProducer {
     constructor() {
         this.kafka = new Kafka({
             clientId: 'benchmark-producer',
-            brokers: [process.env.KAFKA_BOOTSTRAP_SERVERS || 'localhost:9092']
+            brokers: [
+                process.env.KAFKA_BOOTSTRAP_SERVERS_1 || '10.42.53.125:19092',
+                process.env.KAFKA_BOOTSTRAP_SERVERS_2 || '10.42.53.126:19092',
+                process.env.KAFKA_BOOTSTRAP_SERVERS_3 || '10.42.53.127:19092'
+            ]
         });
         
         this.producer = this.kafka.producer({
@@ -94,10 +98,10 @@ class MessageProducer {
                 const messagesToSend = Math.floor(elapsed / interval);
                 const messages = [];
                 
-                for (let i = 0; i < messagesToSend; i++) {
+
+                for (let i = 0; i < 1000; i++) {
                     messages.push({
-                        key: `key-${this.messageCount}`,
-                        value: this.generateMessage()
+                        value: Buffer.from(this.generateMessage(), 'utf-8')
                     });
                     this.messageCount++;
                 }

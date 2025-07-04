@@ -5,22 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="29e32154-9f06-42e9-b774-e803a9ab5d3e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../KafkaConsumer.Net/KafkaConsumer/KafkaMessageConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../KafkaConsumer.Net/KafkaConsumer/KafkaMessageConsumer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/DisburseCommandProducer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/entities/SpringBootMessage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/messageListeners/JpaConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/messageListeners/KafkaConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/messageListeners/KafkaMessageListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/config/AsyncConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/entities/DotnetMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/entities/Loan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/entities/Loan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/messageListeners/ConcurrentKafkaMessageDispatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/messageListeners/ConcurrentKafkaMessageDispatcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/messageListeners/KafkaMessageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/messageListeners/KafkaMessageHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/messageListeners/OrderedKafkaMessageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/messageListeners/OrderedKafkaMessageHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/application/messages/DisburseCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/messages/DisburseCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/repositories/LoanRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/repositories/SpringBootMessageRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/services/LoanManagementService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/repositories/DotnetMessageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/repositories/DotnetMessageRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/services/DbContextProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/services/DbContextProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/services/KafkaMessageConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/services/KafkaMessageConsumer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../scripts/check-performance.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../scripts/check-performance.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../scripts/producer/producer.js" beforeDir="false" afterPath="$PROJECT_DIR$/../scripts/producer/producer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,6 +74,9 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
   <component name="RunManager" selected="Spring Boot.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="application.Main" />
@@ -147,7 +151,8 @@
       <workItem from="1750932374547" duration="4171000" />
       <workItem from="1751173719256" duration="6945000" />
       <workItem from="1751374185811" duration="22402000" />
-      <workItem from="1751542015242" duration="4951000" />
+      <workItem from="1751542015242" duration="5099000" />
+      <workItem from="1751560329994" duration="9341000" />
     </task>
     <servers />
   </component>
@@ -159,23 +164,43 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/application/messageListeners/ConcurrentKafkaMessageDispatcher.java</url>
-          <line>34</line>
+          <line>47</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/application/messageListeners/ConcurrentKafkaMessageDispatcher.java</url>
-          <line>95</line>
+          <line>116</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/application/messageListeners/ConcurrentKafkaMessageDispatcher.java</url>
-          <line>96</line>
+          <line>117</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/application/messageListeners/KafkaMessageHandler.java</url>
-          <line>33</line>
-          <option name="timeStamp" value="4" />
+          <line>43</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/application/services/KafkaMessageConsumer.java</url>
+          <line>31</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/application/messageListeners/KafkaMessageHandler.java</url>
+          <line>34</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/application/messageListeners/KafkaMessageHandler.java</url>
+          <line>39</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/application/services/DbContextProvider.java</url>
+          <line>25</line>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
